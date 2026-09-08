@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ category.name }} - Inventory CMS</title>
+</head>
+<body>
+
+   <p>
+    <a href="/">Home</a>
+
+    {% for item in breadcrumbs %}
+        &gt;
+
+        {% if forloop.last %}
+            {{ item.name }}
+        {% else %}
+            <a href="/categories/{{ item.get_slug_path }}/">
+                {{ item.name }}
+            </a>
+        {% endif %}
+    {% endfor %}
+
+</p>
+    
+    </p>
+
+    <h1>{{ category.name }}</h1>
+
+    {% if children %}
+    <h3>Subcategories</h3>
+
+    <ul>
+        {% for child in children %}
+            <li>
+                <a href="/categories/{{ child.get_slug_path }}/">
+                    {{ child.name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+    <p>
+        Category path: {{ category }}
+    </p>
+
+    <h2>Products</h2>
+
+    {% for product in products %}
+        <div>
+    <h3>
+        <a href="{% url 'product_detail' product.sku %}">
+            {{ product.name }}
+        </a>
+</h3>
+            <p>SKU: {{ product.sku }}</p>
+            <p>Price: ₹{{ product.price }}</p>
+            <p>Quantity: {{ product.quantity }}</p>
+
+            <p>
+              <strong>Stock Status:</strong>
+
+            {% include "products/_stock_status.html" %}
+
+        </p>
+
+        </div>
+        <hr>
+    {% empty %}
+        <p>No products in this category.</p>
+    {% endfor %}
+
+</body>
+</html>

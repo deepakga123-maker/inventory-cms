@@ -1,0 +1,7 @@
+{% if product.stock_status == "Out of Stock" %}
+    <span style="color: red;">{{ product.stock_status }}</span>
+{% elif product.stock_status == "Low Stock" %}
+    <span style="color: orange;">{{ product.stock_status }}</span>
+{% else %}
+    <span style="color: green;">{{ product.stock_status }}</span>
+{% endif %}

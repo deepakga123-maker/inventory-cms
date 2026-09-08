@@ -1,0 +1,25 @@
+{% extends "admin/change_list.html" %}
+
+{% block content %}
+    {% if low_stock_count > 0 %}
+        <div style="
+            padding: 12px;
+            margin-bottom: 20px;
+            background-color: #fff3cd;
+            color: #664d03;
+            border: 1px solid #ffe69c;
+            border-radius: 4px;
+            font-weight: 500;
+        ">
+            <strong>⚠ Low Stock Alert:</strong>
+            {{ low_stock_count }}
+            product{{ low_stock_count|pluralize }}
+            {% if low_stock_count == 1 %}needs{% else %}need{% endif %}
+            attention.
+
+
+        </div>
+    {% endif %}
+
+    {{ block.super }}
+{% endblock %}

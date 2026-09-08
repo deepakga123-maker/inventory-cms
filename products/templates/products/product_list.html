@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inventory CMS</title>
+</head>
+<body>
+
+    <h1>Inventory CMS</h1>
+    <h2>Products</h2>
+
+    <form method="get">
+       <input
+          type="text"
+          name="q"
+          value="{{ query }}"
+          placeholder="Search products..."
+    >
+       <button type="submit">Search</button>
+</form>
+
+<br>
+
+    {% for product in products %}
+        <div>
+            <h3>
+    <a href="{% url 'product_detail' product.sku %}">
+        {{ product.name }}
+    </a>
+</h3>
+            <p>SKU: {{ product.sku }}</p>
+            <p>Category:
+               {% for item in product.category.get_ancestors_and_self %}
+               {{ item.name }}{% if not forloop.last %} → {% endif %}
+               {% endfor %}</p>
+
+            <p>Price: ₹{{ product.price }}</p>
+            <p>Quantity: {{ product.quantity }}</p>
+
+         <p>
+           <strong>Stock Status:</strong>
+
+          {% include "products/_stock_status.html" %}
+</p>
+        </div>
+        <hr>
+    {% empty %}
+        <p>No products available.</p>
+    {% endfor %}
+
+<div>
+    {% if page_obj.has_previous %}
+        <a href="?q={{ query }}&page={{ page_obj.previous_page_number }}">
+            Previous
+        </a>
+    {% endif %}
+
+    <span>
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+    </span>
+
+    {% if page_obj.has_next %}
+        <a href="?q={{ query }}&page={{ page_obj.next_page_number }}">
+            Next
+        </a>
+    {% endif %}
+</div>    
+
+</body>
+</html>

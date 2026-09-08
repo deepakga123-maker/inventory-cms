@@ -32,7 +32,7 @@ A Django-based inventory and catalogue management system using PostgreSQL.
 ### 1. Clone the repository
 
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/deepakga123-maker/inventory-cms.git
 cd inventory-cms
 ```
 
@@ -69,15 +69,20 @@ For running Django tests, allow the user to create temporary test databases:
 ALTER USER inventory_user CREATEDB;
 ```
 
-### 5. Set the database password environment variable
+### 5. Configure environment variables
 
 On Windows PowerShell:
 
 ```powershell
-setx DB_PASSWORD "your_password"
+setx DB_PASSWORD "your_database_password"
+setx DJANGO_SECRET_KEY "your_secret_key"
+setx DJANGO_DEBUG "True"
+setx DJANGO_ALLOWED_HOSTS "127.0.0.1,localhost"
 ```
 
-After running this command, close the terminal and open a new one.
+After running these commands, close the terminal and open a new one.
+
+Do not commit real passwords or secret keys to Git.
 
 ### 6. Run migrations
 
